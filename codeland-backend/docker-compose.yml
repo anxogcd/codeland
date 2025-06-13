@@ -1,0 +1,63 @@
+x-db-credentials: &db-credentials
+  env_file:
+    - .env
+
+services:
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    image: local/nestjs-gateway:latest
+    container_name: codeland_gateway
+    restart: always
+    ports:
+      - '4001:4001'
+    depends_on:
+      - user_service
+    <<: *db-credentials
+
+  user_service:
+    build:
+      context: ./service-users
+      dockerfile: Dockerfile
+    image: local/nestjs-user:latest
+    container_name: codeland_user
+    restart: always
+    ports:
+      - '4002:4002'
+    depends_on:
+      - postgres
+    <<: *db-credentials
+
+  seeder:
+    build: ./seed-service
+    depends_on:
+      - postgres
+    <<: *db-credentials
+    environment:
+      DOCKER: "true"
+    entrypoint:
+      - sh
+      - -c
+      - |
+        until pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT"; do sleep 1; done
+        node scripts/seed.js
+
+  postgres:
+    image: postgres:15
+    container_name: codeland_postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+volumes:
+  postgres_data:
+  pgadmin-data:

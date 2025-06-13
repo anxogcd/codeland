@@ -1,0 +1,20 @@
+{
+  "name": "db-seed",
+  "version": "1.0.0",
+  "description": "Servicio independiente para seed de la base de datos",
+  "main": "scripts/seed.ts",
+  "scripts": {
+    "seed": "ts-node scripts/seed.ts"
+  },
+  "license": "none",
+  "dependencies": {
+    "@mikro-orm/core": "^5.0.0",
+    "@mikro-orm/migrations": "^5.0.0",
+    "pg": "^8.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0",
+    "@types/node": "^18.0.0"
+  }
+}
