@@ -1,10 +1,12 @@
-import { Args, Query, Resolver, ResolveReference } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Args, Context, Query, Resolver } from '@nestjs/graphql';
+import { GqlAuthGuard } from 'src/auth/guards/gql-auth.guard';
 import { UserModel } from './models/user.model';
-import { UserService } from './users.service';
+import { UsersService } from './users.service';
 
 @Resolver(() => UserModel)
 export class UserResolver {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UsersService) {}
 
   @Query(() => UserModel)
   async getUserById(@Args('input') id: number): Promise<UserModel> {
@@ -16,12 +18,10 @@ export class UserResolver {
     return await this.userService.findAll();
   }
 
-  @ResolveReference()
-  async resolveReference(reference: {
-    __typename: string;
-    id: number;
-  }): Promise<UserModel> {
-    console.log('+++++++');
-    return await this.userService.findById(reference.id);
+  @Query(() => String)
+  @UseGuards(GqlAuthGuard)
+  helloProtegido(@Context() context) {
+    const user = context.req.user;
+    return `Hola, ${user.username}`;
   }
 }

@@ -7,4 +7,10 @@ export class UserEntity {
 
   @Property()
   name!: string;
+
+  @Property()
+  username!: string;
+
+  @Property()
+  password!: string;
 }

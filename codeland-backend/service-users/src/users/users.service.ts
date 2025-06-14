@@ -5,7 +5,7 @@ import { UserEntity } from './entities/user.entity';
 import { UserModel } from './models/user.model';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: EntityRepository<UserEntity>,
@@ -13,6 +13,13 @@ export class UserService {
 
   async findById(id: number): Promise<UserModel> {
     const entity = await this.userRepository.findOne({ id });
+    if (!entity) throw new HttpException('User not found', 404);
+
+    return entity;
+  }
+
+  async findByUsername(username: string): Promise<UserModel> {
+    const entity = await this.userRepository.findOne({ username });
     if (!entity) throw new HttpException('User not found', 404);
 
     return entity;

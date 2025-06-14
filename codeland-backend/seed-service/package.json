@@ -10,6 +10,7 @@
   "dependencies": {
     "@mikro-orm/core": "^5.0.0",
     "@mikro-orm/migrations": "^5.0.0",
+    "bcrypt": "^6.0.0",
     "pg": "^8.0.0",
     "uuid": "^11.1.0"
   },

@@ -1,5 +1,4 @@
 import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
-import { IssueModel } from './issue.model';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -10,6 +9,9 @@ export class UserModel {
   @Field()
   name: string;
 
-  @Field(() => IssueModel)
-  issues?: IssueModel;
+  @Field()
+  username: string;
+
+  @Field()
+  password: string;
 }

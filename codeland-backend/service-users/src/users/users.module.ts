@@ -7,12 +7,11 @@ import {
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserEntity } from './entities/user.entity';
-import { IssueModel } from './models/issue.model';
 import { UserResolver } from './users.resolver';
-import { UserService } from './users.service';
+import { UsersService } from './users.service';
 
 @Module({
-  providers: [UserResolver, UserService],
+  providers: [UserResolver, UsersService],
   imports: [
     MikroOrmModule.forFeature({
       entities: [UserEntity],
@@ -23,10 +22,8 @@ import { UserService } from './users.service';
         federation: 2,
       },
       plugins: [ApolloServerPluginInlineTrace()],
-      buildSchemaOptions: {
-        orphanedTypes: [IssueModel],
-      },
     }),
   ],
+  exports: [UsersService],
 })
 export class UsersModule {}

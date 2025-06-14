@@ -1,22 +1,102 @@
 [
-  "El Refactorizador Sombrío",
-  "La Variable Errante",
-  "Señor del Debug Infinito",
-  "Maestro del Merge Conflicto",
-  "El Forjador de Commits",
-  "Destructor de Bugs Legendarios",
-  "El Recursivo Silencioso",
-  "Caballero del Código Limpio",
-  "La Hechicera de la Sintaxis",
-  "Guardián del Linter Sagrado",
-  "El Constructor de APIs Eternas",
-  "El Compilador Errante",
-  "El Executor Asíncrono",
-  "El Corsario del Cluster Perdido",
-  "El Profeta del Stack Overflow",
-  "El Invocador del Docker Sagrado",
-  "El Monje del Loop Infinito",
-  "El Bardo del Backend",
-  "El Ilusionista del Frontend",
-  "El Arquitecto de la Nube Obscura"
+  {
+    "name": "El Refactorizador Sombrío",
+    "username": "refactor_sombrio",
+    "password": "shadowRefactor123"
+  },
+  {
+    "name": "La Variable Errante",
+    "username": "variable_errante",
+    "password": "wanderVar456"
+  },
+  {
+    "name": "Señor del Debug Infinito",
+    "username": "debug_infinito",
+    "password": "endlessDebug789"
+  },
+  {
+    "name": "Maestro del Merge Conflicto",
+    "username": "merge_conflicto",
+    "password": "conflictMaster321"
+  },
+  {
+    "name": "El Forjador de Commits",
+    "username": "forjador_commits",
+    "password": "commitForge654"
+  },
+  {
+    "name": "Destructor de Bugs Legendarios",
+    "username": "destructor_bugs",
+    "password": "legendBugDestroy"
+  },
+  {
+    "name": "El Recursivo Silencioso",
+    "username": "recursivo_silencioso",
+    "password": "silentRecursion"
+  },
+  {
+    "name": "Caballero del Código Limpio",
+    "username": "codigo_limpio",
+    "password": "cleanCodeKnight"
+  },
+  {
+    "name": "La Hechicera de la Sintaxis",
+    "username": "hechicera_sintaxis",
+    "password": "syntaxWitch777"
+  },
+  {
+    "name": "Guardián del Linter Sagrado",
+    "username": "linter_guardian",
+    "password": "holyLinter888"
+  },
+  {
+    "name": "El Constructor de APIs Eternas",
+    "username": "constructor_apis",
+    "password": "apiBuilder999"
+  },
+  {
+    "name": "El Compilador Errante",
+    "username": "compilador_errante",
+    "password": "wanderingCompiler"
+  },
+  {
+    "name": "El Executor Asíncrono",
+    "username": "executor_async",
+    "password": "asyncExecutor"
+  },
+  {
+    "name": "El Corsario del Cluster Perdido",
+    "username": "corsario_cluster",
+    "password": "lostClusterPirate"
+  },
+  {
+    "name": "El Profeta del Stack Overflow",
+    "username": "profeta_stack",
+    "password": "overflowProphet"
+  },
+  {
+    "name": "El Invocador del Docker Sagrado",
+    "username": "invocador_docker",
+    "password": "dockerInvoker"
+  },
+  {
+    "name": "El Monje del Loop Infinito",
+    "username": "monje_loop",
+    "password": "infiniteLoopMonk"
+  },
+  {
+    "name": "El Bardo del Backend",
+    "username": "bardo_backend",
+    "password": "backendBard"
+  },
+  {
+    "name": "El Ilusionista del Frontend",
+    "username": "ilusionista_frontend",
+    "password": "frontendMage"
+  },
+  {
+    "name": "El Arquitecto de la Nube Obscura",
+    "username": "arquitecto_nube",
+    "password": "darkCloudArchitect"
+  }
 ]

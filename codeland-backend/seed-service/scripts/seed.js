@@ -1,6 +1,8 @@
 const { Client } = require('pg');
 const fs = require('fs');
+const path = require('path');
 const { v7: uuidv7 } = require('uuid');
+const bcrypt = require('bcrypt');
 
 const client = new Client({
   host: process.env.DOCKER ? 'postgres' : 'localhost',
@@ -14,8 +16,6 @@ async function seed() {
   try {
     await client.connect();
 
-    const path = require('path');
-
     const users = JSON.parse(
       fs.readFileSync(path.join(__dirname, 'users.json'), 'utf-8')
     );
@@ -23,24 +23,37 @@ async function seed() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS user_entity (
         id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL UNIQUE
+        name TEXT NOT NULL UNIQUE,
+        username TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
       );
     `);
 
     await client.query('TRUNCATE TABLE user_entity RESTART IDENTITY;');
 
-    const userValues = users
-      .map(name => `('${name.replace(/'/g, "''")}')`)
+    const hashedUsers = await Promise.all(
+      users.map(async user => ({
+        ...user,
+        password: await bcrypt.hash(user.password, 10),
+      }))
+    );
+
+    const userValues = hashedUsers
+      .map(user => `(
+        '${user.name.replace(/'/g, "''")}',
+        '${user.username.replace(/'/g, "''")}',
+        '${user.password.replace(/'/g, "''")}'
+      )`)
       .join(',\n');
 
     const userInsertQuery = `
-      INSERT INTO user_entity (name)
+      INSERT INTO user_entity (name, username, password)
       VALUES
       ${userValues};
     `;
 
     await client.query(userInsertQuery);
-    console.log('✅ Guerreros del código insertados');
+    console.log('✅ Usuarios insertados');
 
     const issues = JSON.parse(
       fs.readFileSync(path.join(__dirname, 'issues.json'), 'utf-8')
@@ -62,7 +75,7 @@ async function seed() {
 
     const issueValues = issues
       .map(issue => `(
-        '${uuidv7()}', -- 👈 ID generado como UUIDv7
+        '${uuidv7()}',
         '${issue.title.replace(/'/g, "''")}',
         '${issue.status}',
         ${issue.assignedToId},
@@ -80,7 +93,7 @@ async function seed() {
 
     await client.query(issueInsertQuery);
     console.log('✅ Issues insertadas');
-
+    
   } catch (err) {
     console.error('❌ Error al insertar datos:', err);
   } finally {
