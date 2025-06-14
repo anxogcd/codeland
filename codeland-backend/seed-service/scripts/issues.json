@@ -1,0 +1,162 @@
+[
+  {
+    "title": "Bug #1523: Error en la conexión de la base de datos",
+    "status": "OPEN",
+    "assignedToId": 1,
+    "priority": "HIGH",
+    "createdAt": "2025-06-14T00:00:00Z",
+    "updatedAt": "2025-06-14T00:00:00Z"
+  },
+  {
+    "title": "Bug #1378: El formulario no valida el correo electrónico correctamente",
+    "status": "IN_PROGRESS",
+    "assignedToId": 2,
+    "priority": "MEDIUM",
+    "createdAt": "2025-06-14T00:00:00Z",
+    "updatedAt": "2025-06-14T00:00:00Z"
+  },
+  {
+    "title": "Feature #4281: Añadir opción de filtro por fecha en la búsqueda",
+    "status": "OPEN",
+    "assignedToId": 3,
+    "priority": "LOW",
+    "createdAt": "2025-06-14T00:00:00Z",
+    "updatedAt": "2025-06-14T00:00:00Z"
+  },
+  {
+    "title": "Bug #3204: El botón de enviar no responde en el formulario de contacto",
+    "status": "IN_PROGRESS",
+    "assignedToId": 4,
+    "priority": "HIGH",
+    "createdAt": "2025-06-13T00:00:00Z",
+    "updatedAt": "2025-06-14T00:00:00Z"
+  },
+  {
+    "title": "Bug #1540: El API de autenticación no retorna el token correctamente",
+    "status": "OPEN",
+    "assignedToId": 5,
+    "priority": "HIGH",
+    "createdAt": "2025-06-12T00:00:00Z",
+    "updatedAt": "2025-06-14T00:00:00Z"
+  },
+  {
+    "title": "Feature #9201: Crear una página de perfil de usuario",
+    "status": "OPEN",
+    "assignedToId": 6,
+    "priority": "MEDIUM",
+    "createdAt": "2025-06-11T00:00:00Z",
+    "updatedAt": "2025-06-13T00:00:00Z"
+  },
+  {
+    "title": "Bug #8743: El enlace de 'Olvidé mi contraseña' no funciona",
+    "status": "CLOSED",
+    "assignedToId": 7,
+    "priority": "LOW",
+    "createdAt": "2025-06-10T00:00:00Z",
+    "updatedAt": "2025-06-12T00:00:00Z"
+  },
+  {
+    "title": "Bug #3278: El menú de navegación se desplaza al hacer scroll",
+    "status": "IN_PROGRESS",
+    "assignedToId": 8,
+    "priority": "MEDIUM",
+    "createdAt": "2025-06-09T00:00:00Z",
+    "updatedAt": "2025-06-11T00:00:00Z"
+  },
+  {
+    "title": "Feature #2201: Implementar Dark Mode en la interfaz de usuario",
+    "status": "OPEN",
+    "assignedToId": 9,
+    "priority": "LOW",
+    "createdAt": "2025-06-08T00:00:00Z",
+    "updatedAt": "2025-06-09T00:00:00Z"
+  },
+  {
+    "title": "Bug #1420: Error al cargar los datos de usuario en el dashboard",
+    "status": "CLOSED",
+    "assignedToId": 10,
+    "priority": "HIGH",
+    "createdAt": "2025-06-07T00:00:00Z",
+    "updatedAt": "2025-06-09T00:00:00Z"
+  },
+  {
+    "title": "Feature #3309: Crear funcionalidad para editar perfil de usuario",
+    "status": "OPEN",
+    "assignedToId": 11,
+    "priority": "MEDIUM",
+    "createdAt": "2025-06-06T00:00:00Z",
+    "updatedAt": "2025-06-08T00:00:00Z"
+  },
+  {
+    "title": "Bug #5176: El sistema no envía las notificaciones de correo",
+    "status": "IN_PROGRESS",
+    "assignedToId": 12,
+    "priority": "HIGH",
+    "createdAt": "2025-06-05T00:00:00Z",
+    "updatedAt": "2025-06-07T00:00:00Z"
+  },
+  {
+    "title": "Bug #3298: Las imágenes no se cargan correctamente en la galería",
+    "status": "OPEN",
+    "assignedToId": 13,
+    "priority": "LOW",
+    "createdAt": "2025-06-04T00:00:00Z",
+    "updatedAt": "2025-06-05T00:00:00Z"
+  },
+  {
+    "title": "Feature #1234: Añadir soporte para múltiples idiomas",
+    "status": "OPEN",
+    "assignedToId": 14,
+    "priority": "MEDIUM",
+    "createdAt": "2025-06-03T00:00:00Z",
+    "updatedAt": "2025-06-04T00:00:00Z"
+  },
+  {
+    "title": "Bug #2912: El formulario no muestra el error al no completar el campo obligatorio",
+    "status": "IN_PROGRESS",
+    "assignedToId": 15,
+    "priority": "HIGH",
+    "createdAt": "2025-06-02T00:00:00Z",
+    "updatedAt": "2025-06-03T00:00:00Z"
+  },
+  {
+    "title": "Bug #1741: El sistema falla al intentar cargar los productos en el catálogo",
+    "status": "CLOSED",
+    "assignedToId": 16,
+    "priority": "LOW",
+    "createdAt": "2025-06-01T00:00:00Z",
+    "updatedAt": "2025-06-02T00:00:00Z"
+  },
+  {
+    "title": "Feature #5121: Implementar un sistema de votación en las publicaciones",
+    "status": "OPEN",
+    "assignedToId": 17,
+    "priority": "MEDIUM",
+    "createdAt": "2025-05-31T00:00:00Z",
+    "updatedAt": "2025-06-01T00:00:00Z"
+  },
+  {
+    "title": "Bug #1098: El menú se muestra desordenado en móviles",
+    "status": "IN_PROGRESS",
+    "assignedToId": 18,
+    "priority": "HIGH",
+    "createdAt": "2025-05-30T00:00:00Z",
+    "updatedAt": "2025-06-01T00:00:00Z"
+  },
+  {
+    "title": "Bug #8765: La barra de búsqueda no filtra correctamente los resultados",
+    "status": "OPEN",
+    "assignedToId": 19,
+    "priority": "MEDIUM",
+    "createdAt": "2025-05-29T00:00:00Z",
+    "updatedAt": "2025-05-30T00:00:00Z"
+  },
+  {
+    "title": "Feature #3012: Añadir un sistema de comentarios a las publicaciones",
+    "status": "OPEN",
+    "assignedToId": 20,
+    "priority": "LOW",
+    "createdAt": "2025-05-28T00:00:00Z",
+    "updatedAt": "2025-05-29T00:00:00Z"
+  }
+]

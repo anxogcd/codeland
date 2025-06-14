@@ -2,11 +2,11 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { IssuesModule } from './issues/issues.module';
 
 @Module({
   imports: [
-    UsersModule,
+    IssuesModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

@@ -10,11 +10,12 @@
   "dependencies": {
     "@mikro-orm/core": "^5.0.0",
     "@mikro-orm/migrations": "^5.0.0",
-    "pg": "^8.0.0"
+    "pg": "^8.0.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
     "ts-node": "^10.0.0",
-    "typescript": "^4.0.0",
-    "@types/node": "^18.0.0"
+    "typescript": "^4.0.0"
   }
 }

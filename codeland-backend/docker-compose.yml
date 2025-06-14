@@ -29,6 +29,19 @@ services:
       - postgres
     <<: *db-credentials
 
+  issue_service:
+    build:
+      context: ./service-issues
+      dockerfile: Dockerfile
+    image: local/nestjs-issues:latest
+    container_name: codeland_issue
+    restart: always
+    ports:
+      - '4003:4003'
+    depends_on:
+      - postgres
+    <<: *db-credentials
+
   seeder:
     build: ./seed-service
     depends_on:

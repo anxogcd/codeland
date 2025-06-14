@@ -1,4 +1,6 @@
 const { Client } = require('pg');
+const fs = require('fs');
+const { v7: uuidv7 } = require('uuid');
 
 const client = new Client({
   host: process.env.DOCKER ? 'postgres' : 'localhost',
@@ -8,32 +10,15 @@ const client = new Client({
   port: process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT) : 5432,
 });
 
-const guerreros = [
-  'El Refactorizador Sombrío',
-  'La Variable Errante',
-  'Señor del Debug Infinito',
-  'Maestro del Merge Conflicto',
-  'El Forjador de Commits',
-  'Destructor de Bugs Legendarios',
-  'El Recursivo Silencioso',
-  'Caballero del Código Limpio',
-  'La Hechicera de la Sintaxis',
-  'Guardián del Linter Sagrado',
-  'El Constructor de APIs Eternas',
-  'El Compilador Errante',
-  'El Executor Asíncrono',
-  'El Corsario del Cluster Perdido',
-  'El Profeta del Stack Overflow',
-  'El Invocador del Docker Sagrado',
-  'El Monje del Loop Infinito',
-  'El Bardo del Backend',
-  'El Ilusionista del Frontend',
-  'El Arquitecto de la Nube Obscura'
-];
-
 async function seed() {
   try {
     await client.connect();
+
+    const path = require('path');
+
+    const users = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'users.json'), 'utf-8')
+    );
 
     await client.query(`
       CREATE TABLE IF NOT EXISTS user_entity (
@@ -44,20 +29,60 @@ async function seed() {
 
     await client.query('TRUNCATE TABLE user_entity RESTART IDENTITY;');
 
-    const values = guerreros
+    const userValues = users
       .map(name => `('${name.replace(/'/g, "''")}')`)
       .join(',\n');
 
-    const insertQuery = `
+    const userInsertQuery = `
       INSERT INTO user_entity (name)
       VALUES
-      ${values};
+      ${userValues};
     `;
 
-    await client.query(insertQuery);
+    await client.query(userInsertQuery);
     console.log('✅ Guerreros del código insertados');
+
+    const issues = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'issues.json'), 'utf-8')
+    );
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS issue_entity (
+        id UUID PRIMARY KEY,
+        title TEXT NOT NULL,
+        status TEXT NOT NULL,
+        assignedToId INTEGER REFERENCES user_entity(id),
+        priority TEXT NOT NULL,
+        createdAt TIMESTAMP NOT NULL,
+        updatedAt TIMESTAMP NOT NULL
+      );
+    `);
+
+    await client.query('TRUNCATE TABLE issue_entity;');
+
+    const issueValues = issues
+      .map(issue => `(
+        '${uuidv7()}', -- 👈 ID generado como UUIDv7
+        '${issue.title.replace(/'/g, "''")}',
+        '${issue.status}',
+        ${issue.assignedToId},
+        '${issue.priority}',
+        '${new Date(issue.createdAt).toISOString()}',
+        '${new Date(issue.updatedAt).toISOString()}'
+      )`)
+      .join(',\n');
+
+    const issueInsertQuery = `
+      INSERT INTO issue_entity (id, title, status, assignedToId, priority, createdAt, updatedAt)
+      VALUES
+      ${issueValues};
+    `;
+
+    await client.query(issueInsertQuery);
+    console.log('✅ Issues insertadas');
+
   } catch (err) {
-    console.error('❌ Error al insertar o crear la tabla:', err);
+    console.error('❌ Error al insertar datos:', err);
   } finally {
     await client.end();
   }
