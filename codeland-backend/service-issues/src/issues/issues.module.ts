@@ -6,6 +6,7 @@ import {
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule, registerEnumType } from '@nestjs/graphql';
+import { AUTH_PROVIDERS } from 'src/auth/infrastructure/providers/auth-provider';
 import { UserGqlType } from 'src/user/infrastructure/graphql/types/user.gqltype';
 import { USER_PROVIDERS } from 'src/user/infrastructure/providers/user.provider';
 import { EIssueCriteriaSort } from './domain/constants/issue-criteria-sort.enum';
@@ -25,7 +26,7 @@ for (const gqlEnum of GQL_ENUMS) {
 }
 
 @Module({
-  providers: [...ISSUE_PROVIDERS, ...USER_PROVIDERS],
+  providers: [...ISSUE_PROVIDERS, ...USER_PROVIDERS, ...AUTH_PROVIDERS],
   imports: [
     MikroOrmModule.forFeature({ entities: [IssueEntity] }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({

@@ -1,6 +1,7 @@
 import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { Inject, Injectable } from '@nestjs/common';
 import { CriteriaResult } from '@Shared/domain/interfaces/criteria-result.interface';
 import { VODate } from '@Shared/domain/value-objects/date.value-objects';
 import { VONumber } from '@Shared/domain/value-objects/number.value-object';
@@ -18,6 +19,8 @@ export class IssueRepository implements IIssuesRepository {
   constructor(
     @InjectRepository(IssueEntity)
     private readonly issueRepository: EntityRepository<IssueEntity>,
+    @Inject()
+    private readonly em: EntityManager,
   ) {}
 
   async findByCriteria(
@@ -67,6 +70,13 @@ export class IssueRepository implements IIssuesRepository {
     return { data: entities.map(this.toDomain), total };
   }
 
+  async save(issueModel: IssueModel): Promise<void> {
+    const dataEntity = this.toPersistence(issueModel);
+    const persistedEntity = await this.issueRepository.upsert(dataEntity);
+
+    this.em.persist(persistedEntity);
+  }
+
   private toDomain(persistanceEntity: IssueEntity): IssueModel {
     return new IssueModel(
       VOIssueId.createFromString(persistanceEntity.id),
@@ -77,5 +87,17 @@ export class IssueRepository implements IIssuesRepository {
       VODate.create(persistanceEntity.updatedAt),
       VODate.create(persistanceEntity.createdAt),
     );
+  }
+
+  private toPersistence(model: IssueModel): IssueEntity {
+    return {
+      id: model.id.getRaw(),
+      title: model.getTitle().getRaw(),
+      assignedToId: model.getAssignedTo().getRaw(),
+      priority: model.getPriority().getRaw(),
+      status: model.getStatus().getRaw(),
+      createdAt: model.createdAt.getRaw(),
+      updatedAt: model.getUpdatedAt().getRaw(),
+    };
   }
 }

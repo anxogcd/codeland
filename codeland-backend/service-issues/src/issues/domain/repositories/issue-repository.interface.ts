@@ -10,4 +10,6 @@ export interface IIssuesRepository {
   findById(id: string): Promise<IssueModel | null>;
 
   findByAssingedUserId(userId: number): Promise<CriteriaResult<IssueModel>>;
+
+  save(issueModel: IssueModel): Promise<void>;
 }
