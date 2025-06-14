@@ -50,6 +50,23 @@ export class IssueRepository implements IIssuesRepository {
     return { data: entities.map(this.toDomain), total };
   }
 
+  async findById(id: string): Promise<IssueModel | null> {
+    const entity = await this.issueRepository.findOne({ id });
+    if (!entity) return null;
+
+    return this.toDomain(entity);
+  }
+
+  async findByAssingedUserId(
+    userId: number,
+  ): Promise<CriteriaResult<IssueModel>> {
+    const [entities, total] = await this.issueRepository.findAndCount({
+      assignedToId: userId,
+    });
+
+    return { data: entities.map(this.toDomain), total };
+  }
+
   private toDomain(persistanceEntity: IssueEntity): IssueModel {
     return new IssueModel(
       VOIssueId.createFromString(persistanceEntity.id),

@@ -1,12 +1,15 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
-
+import { Field, ObjectType } from '@nestjs/graphql';
+import { v7 } from 'uuid';
 import { EIssuePriority } from '../../domain/value-objects/issue-priority.value-object';
 import { EIssueStatus } from '../../domain/value-objects/issue-status.value-object';
 
+@ObjectType()
 @Entity()
 export class IssueEntity {
-  @PrimaryKey()
-  id!: string;
+  @Field()
+  @PrimaryKey({ type: 'uuid' })
+  id: string = v7();
 
   @Property()
   title!: string;

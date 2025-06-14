@@ -1,6 +1,7 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { IssueFindByCriteriaDto } from 'src/issues/application/dtos/issue-find-by-criteria.dto';
 import { IssueFindByCriteriaUseCase } from 'src/issues/application/use-cases/issue-find-by-criteria.use-case';
+import { UserGqlType } from 'src/user/infrastructure/graphql/types/user.gqltype';
 import { IssueCriteriaFiltersGqlInput } from '../dtos/issue-criteria-filter.gqlinput';
 import { IssueMapper } from '../mappers/issue.gql-mapper';
 import { IssueCriteriaResultGqlType } from '../types/issue-criteria-result.gqltype';
@@ -35,5 +36,10 @@ export class IssueResolver {
     );
 
     return { data: data.map(IssueMapper.toGql), total };
+  }
+
+  @ResolveField(() => UserGqlType)
+  user(@Parent() post: IssueGqlType): any {
+    return { __typename: 'User', id: post.assignedToId };
   }
 }

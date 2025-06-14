@@ -6,4 +6,8 @@ export interface IIssuesRepository {
   findByCriteria(
     criteria: IIssueFiltersWithPagination,
   ): Promise<CriteriaResult<IssueModel>>;
+
+  findById(id: string): Promise<IssueModel | null>;
+
+  findByAssingedUserId(userId: number): Promise<CriteriaResult<IssueModel>>;
 }

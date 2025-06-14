@@ -1,5 +1,7 @@
 import { Provider } from '@nestjs/common';
+import { IssueFindByAssignedUserIdUseCase } from 'src/issues/application/use-cases/issue-find-by-assigned-user-id.use-case';
 import { IssueFindByCriteriaUseCase } from 'src/issues/application/use-cases/issue-find-by-criteria.use-case';
+import { IssueFindByIdUseCase } from 'src/issues/application/use-cases/issue-find-by-id.use-case';
 import { DITokenIIssueRepository } from 'src/issues/domain/repositories/issue-repository.di-token';
 import { IssueResolver } from '../graphql/resolvers/issue.resolver';
 import { IssueRepository } from '../repositories/issue.repository';
@@ -11,7 +13,11 @@ const Repositories: Provider[] = [
   },
 ];
 
-const UseCases: Provider[] = [IssueFindByCriteriaUseCase];
+const UseCases: Provider[] = [
+  IssueFindByCriteriaUseCase,
+  IssueFindByIdUseCase,
+  IssueFindByAssignedUserIdUseCase,
+];
 
 const Resolvers: Provider[] = [IssueResolver];
 

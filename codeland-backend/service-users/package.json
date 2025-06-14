@@ -23,6 +23,8 @@
     "migration:down": "mikro-orm migration:down"
   },
   "dependencies": {
+    "@apollo/federation": "^0.38.1",
+    "@apollo/gateway": "^2.11.0",
     "@apollo/server": "^4.12.2",
     "@apollo/subgraph": "^2.11.0",
     "@mikro-orm/core": "^6.4.16",
