@@ -1,6 +1,6 @@
 export class AuthModel {
   constructor(
-    private readonly username: string,
-    private readonly password: string
+    public readonly username: string,
+    public readonly password: string
   ) {}
 }
