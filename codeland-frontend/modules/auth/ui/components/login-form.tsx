@@ -30,9 +30,13 @@ type Props = {
   users: Array<Partial<UserModel>>;
 };
 
-export const Login: FC<Props> = ({ users }) => {
+export const LoginForm: FC<Props> = ({ users }) => {
   const form = useForm<z.infer<typeof AuthSchema>>({
     resolver: zodResolver(AuthSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
 
   const onSubmit = (data: z.infer<typeof AuthSchema>) => {
@@ -48,7 +52,7 @@ export const Login: FC<Props> = ({ users }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <FormField
           control={form.control}
           name="username"
@@ -60,7 +64,7 @@ export const Login: FC<Props> = ({ users }) => {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger>
                     <SelectValue placeholder="username" />
                   </SelectTrigger>
                   <SelectContent>
