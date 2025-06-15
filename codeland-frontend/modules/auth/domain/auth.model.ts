@@ -1,10 +1,6 @@
-// src/authentication/domain/User.js
-
-class User {
+export class AuthModel {
   constructor(
     private readonly username: string,
     private readonly password: string
   ) {}
 }
-
-export default User;

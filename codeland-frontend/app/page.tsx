@@ -1,7 +1,5 @@
-import Login from "./authentication/pages/login";
+import { Login } from "../modules/auth/pages/login";
 
 export default function Home() {
-  return (
-    <Login></Login>
-  );
+  return <Login></Login>;
 }

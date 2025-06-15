@@ -29,7 +29,19 @@ async function seed() {
       );
     `);
 
-    await client.query('TRUNCATE TABLE user_entity RESTART IDENTITY;');
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS issue_entity (
+        id UUID PRIMARY KEY,
+        title TEXT NOT NULL,
+        status TEXT NOT NULL,
+        assignedToId INTEGER REFERENCES user_entity(id),
+        priority TEXT NOT NULL,
+        createdAt TIMESTAMP NOT NULL,
+        updatedAt TIMESTAMP NOT NULL
+      );
+    `);
+
+    await client.query('TRUNCATE TABLE issue_entity, user_entity RESTART IDENTITY CASCADE;');
 
     const hashedUsers = await Promise.all(
       users.map(async user => ({
@@ -58,20 +70,6 @@ async function seed() {
     const issues = JSON.parse(
       fs.readFileSync(path.join(__dirname, 'issues.json'), 'utf-8')
     );
-
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS issue_entity (
-        id UUID PRIMARY KEY,
-        title TEXT NOT NULL,
-        status TEXT NOT NULL,
-        assignedToId INTEGER REFERENCES user_entity(id),
-        priority TEXT NOT NULL,
-        createdAt TIMESTAMP NOT NULL,
-        updatedAt TIMESTAMP NOT NULL
-      );
-    `);
-
-    await client.query('TRUNCATE TABLE issue_entity;');
 
     const issueValues = issues
       .map(issue => `(
