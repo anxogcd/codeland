@@ -74,4 +74,11 @@ root/
 
 ---
 
+## Login para acciones protegidas
+
+- Puedes utilizar cualquier usuario y contraseña del seeder, como por ejemplo:
+  "name": "El Constructor de APIs Eternas",
+  "username": "constructor_apis",
+  "password": "apiBuilder999"
+
 ¡Feliz desarrollo! 🚀
