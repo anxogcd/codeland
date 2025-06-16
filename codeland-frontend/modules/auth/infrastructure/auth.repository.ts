@@ -1,16 +1,29 @@
-import { query } from "@Modules/apollo/client";
-import { GetAllUsersQuery, UserModel } from "@Modules/gql/generated/graphql";
-import { getAllUsersQuery } from "../api/queries";
+import client from "@/modules/apollo/client";
+import {
+  GetAllUsersQuery,
+  LoginMutation,
+  UserModel,
+} from "@Modules/gql/generated/graphql";
+import { GET_ALL_USERS_QUERY, LOGIN_MUTATION } from "../api/queries";
 import { IAuthRepository } from "../domain/auth-repository.interface";
 
 export class AuthRepository implements IAuthRepository {
-  async login(username: string, password: string) {
-    return "hola";
+  async getAllUsers(): Promise<Array<Partial<UserModel>>> {
+    const { data } = await client.query<GetAllUsersQuery>({
+      query: GET_ALL_USERS_QUERY,
+    });
+    return this.fromApi(data);
   }
 
-  async getAllUsers(): Promise<Array<Partial<UserModel>>> {
-    const { data } = await query<GetAllUsersQuery>({ query: getAllUsersQuery });
-    return this.fromApi(data);
+  async login(username: string, password: string) {
+    const res = await client.mutate<LoginMutation>({
+      mutation: LOGIN_MUTATION,
+      variables: {
+        data: { username, password },
+      },
+    });
+
+    return res.data?.login.access_token;
   }
 
   private fromApi(apiEntity: GetAllUsersQuery): Array<Partial<UserModel>> {

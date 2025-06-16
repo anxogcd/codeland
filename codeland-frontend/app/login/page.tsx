@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -5,13 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AuthGetUsersUseCase } from "../../application/auth-get-users.use-case";
-import { AuthRepository } from "../../infrastructure/auth.repository";
-import { LoginForm } from "../components/login-form";
+import { LoginForm } from "../../modules/auth/components/login-form";
+import { useGetUsers } from "../../modules/auth/hooks/useGetUsers";
 
-export default async function LoginPage() {
-  const useCase = new AuthGetUsersUseCase(new AuthRepository());
-  const users = await useCase.execute();
+const LoginPage = () => {
+  const { users } = useGetUsers();
 
   return (
     <div className="flex justify-center align-center h-screen bg-secondary">
@@ -26,4 +26,6 @@ export default async function LoginPage() {
       </Card>
     </div>
   );
-}
+};
+
+export default LoginPage;

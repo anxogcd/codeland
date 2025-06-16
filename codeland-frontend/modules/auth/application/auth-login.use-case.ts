@@ -1,5 +1,9 @@
-export class AuthLoginUseCase {
-  constructor() {}
+import { IAuthRepository } from "../domain/auth-repository.interface";
 
-  async execute(username: string, pass: string) {}
+export class AuthLoginUseCase {
+  constructor(private readonly authRepository: IAuthRepository) {}
+
+  async execute(username: string, pass: string) {
+    return await this.authRepository.login(username, pass);
+  }
 }
