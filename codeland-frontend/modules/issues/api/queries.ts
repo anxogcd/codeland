@@ -39,3 +39,9 @@ export const ISSUES_FIND_BY_CRITERIA_QUERY = gql`
     }
   }
 `;
+
+export const ASSIGN_ISSUE_TO_ME = gql`
+  mutation AssignIssueToMe($issueId: String!) {
+    assignIssueToMe(data: { issueId: $issueId })
+  }
+`;

@@ -34,6 +34,7 @@ for (const gqlEnum of GQL_ENUMS) {
         federation: 2,
       },
       plugins: [ApolloServerPluginInlineTrace()],
+      context: ({ req }) => ({ req }),
       /*       buildSchemaOptions: {
         orphanedTypes: [UserGqlType],
       }, */

@@ -13,4 +13,6 @@ export interface IIssueRepository {
     assignedToId?: number,
     priority?: EIssuePriority
   ): Promise<{ data: Partial<Issue>[]; total: number }>;
+
+  assignToMe(id: string): Promise<void>;
 }

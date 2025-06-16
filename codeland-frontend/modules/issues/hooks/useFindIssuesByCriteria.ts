@@ -6,7 +6,7 @@ import {
   EIssueStatus,
   Issue,
 } from "@/modules/gql/generated/graphql";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IssueFindByCriteriaUseCase } from "../application/issue-find-by-criteria.use-case";
 import { IssueRepository } from "../infrastructure/issue.repository";
 
@@ -23,29 +23,37 @@ export const useFindIssuesByCriteria = (
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchIssues = async () => {
-      try {
-        const useCase = new IssueFindByCriteriaUseCase(new IssueRepository());
-        const { data, total } = await useCase.execute(
-          page,
-          orderBy,
-          title,
-          status,
-          assignedToId,
-          priority
-        );
-        setIssues(data);
-        setTotalNumber(total);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchIssues();
+  const fetchIssues = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const useCase = new IssueFindByCriteriaUseCase(new IssueRepository());
+      const { data, total } = await useCase.execute(
+        page,
+        orderBy,
+        title,
+        status,
+        assignedToId,
+        priority
+      );
+      setIssues(data);
+      setTotalNumber(total);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [page, orderBy, title, status, assignedToId, priority]);
 
-  return { issues, loading, error, total: totalNumber };
+  useEffect(() => {
+    fetchIssues();
+  }, [fetchIssues]);
+
+  return {
+    issues,
+    loading,
+    error,
+    total: totalNumber,
+    refetch: fetchIssues,
+  };
 };

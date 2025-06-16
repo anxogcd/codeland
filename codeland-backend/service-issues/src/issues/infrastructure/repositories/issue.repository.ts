@@ -41,8 +41,6 @@ export class IssueRepository implements IIssuesRepository {
       if (filters.status) queryFilters.status = filters.status;
     }
 
-    const order = 'updatedat';
-    console.log(order);
     const [entities, total] = await this.issueRepository.findAndCount(
       queryFilters,
       {

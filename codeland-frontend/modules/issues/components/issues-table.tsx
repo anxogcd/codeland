@@ -16,6 +16,7 @@ import {
 } from "@/modules/gql/generated/graphql";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useAssignIssueToMe } from "../hooks/useAssignIssueToMe";
 import { useFindIssuesByCriteria } from "../hooks/useFindIssuesByCriteria";
 
 const enum EOpenClose {
@@ -29,12 +30,13 @@ export const IssuesTable = () => {
     EIssueCriteriaSort.UpdatedAt
   );
   const [openClose, setOpenClose] = useState<EOpenClose>();
-  const { issues, total, error, loading } = useFindIssuesByCriteria(
+  const { issues, total, refetch } = useFindIssuesByCriteria(
     page,
     orderBy,
     undefined,
     openClose as unknown as EIssueStatus
   );
+  const { assign } = useAssignIssueToMe();
 
   const setOpenCloseFilter = () => {
     switch (openClose) {
@@ -48,6 +50,13 @@ export const IssuesTable = () => {
         setOpenClose(undefined);
     }
   };
+
+  const assignToMe = (id: string) => {
+    assign(id);
+    refetch();
+    window.location.reload();
+  };
+
   return (
     <Table>
       <TableCaption>
@@ -103,7 +112,12 @@ export const IssuesTable = () => {
             <TableCell>{issue.assignedToId}</TableCell>
             <TableCell>{dayjs(issue.updatedAt).toString()}</TableCell>
             <TableCell>
-              <Button variant="secondary">Assign to me</Button>
+              <Button
+                variant="secondary"
+                onClick={() => assignToMe(issue.id ?? "")}
+              >
+                Assign to me
+              </Button>
             </TableCell>
           </TableRow>
         ))}
