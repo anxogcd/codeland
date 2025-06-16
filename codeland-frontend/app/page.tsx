@@ -35,10 +35,21 @@ export const Home = () => {
       </h2>
     );
 
+  const logOut = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+
   return (
     <div className="flex justify-center align-center h-screen bg-secondary">
-      <Card className="w-4/5 h-8/12 m-auto">
+      <Card className="w-4/5 h-10/12 m-auto p-2 overflow-y-auto">
         <CardHeader>
+          <div
+            className="text-right text-3xl cursor-pointer"
+            onClick={() => logOut()}
+          >
+            ❌
+          </div>
           <CardTitle>Issues</CardTitle>
           <CardDescription>Issues List</CardDescription>
         </CardHeader>
