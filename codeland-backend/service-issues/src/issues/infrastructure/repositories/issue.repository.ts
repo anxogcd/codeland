@@ -6,6 +6,7 @@ import { CriteriaResult } from '@Shared/domain/interfaces/criteria-result.interf
 import { VODate } from '@Shared/domain/value-objects/date.value-objects';
 import { VONumber } from '@Shared/domain/value-objects/number.value-object';
 import { VOString } from '@Shared/domain/value-objects/string.value-object';
+import { EIssueCriteriaSort } from 'src/issues/domain/constants/issue-criteria-sort.enum';
 import { IIssueFiltersWithPagination } from 'src/issues/domain/interfaces/issue-filters.interface';
 import { IssueModel } from 'src/issues/domain/models/issue.model';
 import { IIssuesRepository } from 'src/issues/domain/repositories/issue-repository.interface';
@@ -40,11 +41,15 @@ export class IssueRepository implements IIssuesRepository {
       if (filters.status) queryFilters.status = filters.status;
     }
 
-    const order = orderBy ? { [orderBy as string]: 'desc' } : {};
+    const order = 'updatedat';
+    console.log(order);
     const [entities, total] = await this.issueRepository.findAndCount(
       queryFilters,
       {
-        orderBy: order,
+        orderBy:
+          orderBy === EIssueCriteriaSort.PRIORITY
+            ? { priority: 'desc' }
+            : { updatedAt: 'desc' },
         offset: (page - 1) * limit,
         limit,
       },

@@ -7,7 +7,6 @@ import {
 import { Module } from '@nestjs/common';
 import { GraphQLModule, registerEnumType } from '@nestjs/graphql';
 import { AUTH_PROVIDERS } from 'src/auth/infrastructure/providers/auth-provider';
-import { UserGqlType } from 'src/user/infrastructure/graphql/types/user.gqltype';
 import { USER_PROVIDERS } from 'src/user/infrastructure/providers/user.provider';
 import { EIssueCriteriaSort } from './domain/constants/issue-criteria-sort.enum';
 import { EIssuePriority } from './domain/value-objects/issue-priority.value-object';
@@ -35,9 +34,9 @@ for (const gqlEnum of GQL_ENUMS) {
         federation: 2,
       },
       plugins: [ApolloServerPluginInlineTrace()],
-      buildSchemaOptions: {
+      /*       buildSchemaOptions: {
         orphanedTypes: [UserGqlType],
-      },
+      }, */
     }),
   ],
 })

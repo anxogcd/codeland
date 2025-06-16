@@ -1,8 +1,4 @@
-import {
-  EIssueCriteriaSort,
-  EIssuePriority,
-  EIssueStatus,
-} from "@/modules/gql/generated/graphql";
+import { EIssuePriority, EIssueStatus } from "@/modules/gql/generated/graphql";
 import { IIssueRepository } from "../domain/issue-repository.interface";
 
 export class IssueFindByCriteriaUseCase {
@@ -10,7 +6,7 @@ export class IssueFindByCriteriaUseCase {
 
   async execute(
     page?: number,
-    orderBy?: EIssueCriteriaSort,
+    orderBy?: string,
     title?: string,
     status?: EIssueStatus,
     assignedToId?: number,

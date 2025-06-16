@@ -64,7 +64,7 @@ export class IssueResolver {
   }
 
   @ResolveField(() => UserGqlType)
-  user(@Parent() post: IssueGqlType): any {
-    return { __typename: 'User', id: post.assignedToId };
+  user(@Parent() issue: IssueGqlType): any {
+    return { __typename: 'User', id: issue.assignedToId };
   }
 }

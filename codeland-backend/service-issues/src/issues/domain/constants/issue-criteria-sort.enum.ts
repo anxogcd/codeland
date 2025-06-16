@@ -1,4 +1,4 @@
 export enum EIssueCriteriaSort {
-  PRIORITY = 'PRIORITY',
-  UPDATED_AT = 'UPDATEDAT',
+  PRIORITY = 'priority',
+  UPDATED_AT = 'updatedat',
 }

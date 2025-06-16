@@ -10,29 +10,55 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { EIssueCriteriaSort } from "@/modules/gql/generated/graphql";
 import dayjs from "dayjs";
+import { useState } from "react";
 import { useFindIssuesByCriteria } from "../hooks/useFindIssuesByCriteria";
 
 export const IssuesTable = () => {
-  const { issues, total, error, loading } = useFindIssuesByCriteria(1);
+  const [page, setPage] = useState(1);
+  const [orderBy, setOrderBy] = useState<EIssueCriteriaSort>(
+    EIssueCriteriaSort.UpdatedAt
+  );
+  const { issues, total, error, loading } = useFindIssuesByCriteria(
+    page,
+    orderBy
+  );
   return (
     <Table>
       <TableCaption>
-        <Button className="mr-3">Previous Page</Button>
-        <Button>Next Page</Button>
+        <Button
+          className="mr-3"
+          disabled={page <= 1}
+          onClick={() => setPage(page - 1)}
+        >
+          Previous Page
+        </Button>
+        <Button
+          className="mr-3"
+          disabled={page * 10 >= (total ?? 0)}
+          onClick={() => setPage(page + 1)}
+        >
+          Next Page
+        </Button>
+        Total: {total}
       </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Title</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead>Priority</TableHead>
+          <TableHead onClick={() => setOrderBy(EIssueCriteriaSort.Priority)}>
+            Priority ▼
+          </TableHead>
           <TableHead>User Id</TableHead>
-          <TableHead>Updated At</TableHead>
+          <TableHead onClick={() => setOrderBy(EIssueCriteriaSort.UpdatedAt)}>
+            Updated At ▼
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {issues.map((issue) => (
-          <TableRow>
+          <TableRow key={issue.id}>
             <TableCell className="font-medium">{issue.title}</TableCell>
             <TableCell>{issue.status}</TableCell>
             <TableCell>{issue.priority}</TableCell>

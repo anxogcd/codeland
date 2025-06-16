@@ -1,5 +1,4 @@
 import {
-  EIssueCriteriaSort,
   EIssuePriority,
   EIssueStatus,
   Issue,
@@ -8,7 +7,7 @@ import {
 export interface IIssueRepository {
   findByCriteria(
     page?: number,
-    orderBy?: EIssueCriteriaSort,
+    orderBy?: string,
     title?: string,
     status?: EIssueStatus,
     assignedToId?: number,

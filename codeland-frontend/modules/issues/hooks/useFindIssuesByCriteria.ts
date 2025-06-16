@@ -45,7 +45,7 @@ export const useFindIssuesByCriteria = (
     };
 
     fetchIssues();
-  }, []);
+  }, [page, orderBy, title, status, assignedToId, priority]);
 
   return { issues, loading, error, total: totalNumber };
 };
