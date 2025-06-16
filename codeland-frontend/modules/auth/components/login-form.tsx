@@ -20,13 +20,12 @@ import {
 } from "@/components/ui/select";
 import { UserModel } from "@/modules/gql/generated/graphql";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { tokenAtom, useLogin } from "../hooks/useLogin";
+import { useLogin } from "../hooks/useLogin";
 import { AuthSchema } from "../infrastructure/auth.zod-schema";
 
 type Props = {
@@ -36,7 +35,6 @@ type Props = {
 export const LoginForm: FC<Props> = ({ users }) => {
   const router = useRouter();
   const { login } = useLogin();
-  const [_, setToken] = useAtom(tokenAtom);
 
   const form = useForm<z.infer<typeof AuthSchema>>({
     resolver: zodResolver(AuthSchema),
@@ -49,7 +47,6 @@ export const LoginForm: FC<Props> = ({ users }) => {
   const onSubmit = async (data: z.infer<typeof AuthSchema>) => {
     try {
       const res = await login(data.username, data.password);
-      setToken(res ?? "");
       console.log("Token: ", res);
       router.push("/");
     } catch (err) {

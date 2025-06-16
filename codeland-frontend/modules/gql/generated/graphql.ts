@@ -138,3 +138,16 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthResponse', access_token: string } };
+
+export type FindIssuesByCriteriaQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<EIssueCriteriaSort>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EIssueStatus>;
+  assignedToId?: InputMaybe<Scalars['Int']['input']>;
+  priority?: InputMaybe<EIssuePriority>;
+}>;
+
+
+export type FindIssuesByCriteriaQuery = { __typename?: 'Query', issueFindByCriteria: { __typename?: 'IssueCriteriaResult', total: number, data: Array<{ __typename?: 'Issue', id: string, title: string, status: EIssueStatus, assignedToId: number, priority: EIssuePriority, updatedAt: any, createdAt: any, user: { __typename?: 'UserGqlType', id: string } }> } };

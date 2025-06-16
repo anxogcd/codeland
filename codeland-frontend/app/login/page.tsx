@@ -14,8 +14,9 @@ const LoginPage = () => {
   const { users } = useGetUsers();
 
   return (
-    <div className="flex justify-center align-center h-screen bg-secondary">
-      <Card className="h-fit w-1/5 m-auto">
+    <div className="flex flex-col justify-center align-center h-screen bg-secondary">
+      <h2 className="mb-7 border-b text-3xl font-bold mx-auto">CodeLand</h2>
+      <Card className="h-fit w-1/5 mx-auto">
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>Access to your account</CardDescription>
